@@ -46,6 +46,8 @@ namespace Notes3.Models
                     notes.text = newNotes.text;
                     notes.xPos = newNotes.xPos;
                     notes.yPos = newNotes.yPos;
+                    notes.width = newNotes.width;
+                    notes.height = newNotes.height;
                     notes.pinMode = newNotes.pinMode;
                     notes.creationDate = newNotes.creationDate;
                     db.SaveChanges();

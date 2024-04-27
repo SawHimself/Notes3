@@ -36,12 +36,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Grid x:Name="testingNote"
-                                  Height="225"
-                                  Width="150"
-                                  Background="Transparent"
-                                  MouseLeftButtonDown="MoveMouseLeftButtonDown"
-                                  MouseMove="MoveMouseMove"
-                                  MouseLeftButtonUp="MoveMouseLeftButtonUp">
+                                  Margin="5">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="25"/>
                                 <RowDefinition/>
@@ -53,8 +48,8 @@
                                       MouseLeftButtonUp="MoveMouseLeftButtonUp">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="10"/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="20"/>
+                                        <ColumnDefinition Width="20"/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
@@ -89,14 +84,22 @@
                                 </Grid>
                             </Border>
 
-                            <Grid Grid.Row="2">
-                                <TextBox x:Name="NoteContent"
+                            <Grid Height="{Binding Path=height}"
+                                  Width="{Binding Path=width}"
+                                  Grid.Row="2"
+                                  Background="Transparent"
+                                  MouseLeftButtonDown="ChangeSizeLeftButtonDown"
+                                  MouseMove="ChangeSizeMouseMove"
+                                  MouseLeftButtonUp="ChangeSizeLeftButtonUp"
+                                  IsHitTestVisible="True"
+                                  Cursor="Hand">
+                                <Grid Margin="6">
+                                    <TextBox x:Name="NoteContent"
                                              Style="{StaticResource EntryField}"
-                                             Height="185"
-                                             Width="145"
                                              TextWrapping="Wrap"
                                              Text="{Binding Path=text}"
                                              TextChanged="ChangeNoteText"/>
+                                </Grid>
                             </Grid>
                         </Grid>
                     </DataTemplate>

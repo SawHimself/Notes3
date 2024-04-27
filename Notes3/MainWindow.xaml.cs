@@ -42,7 +42,7 @@ namespace Notes3
 
         public void CreateNewNote(object sender, EventArgs e)
         {
-            var note = new Note("", false, 0, 0);
+            var note = new Note("test text", false, 0, 0, 225, 150);
             DatabaseManagement.AddNotes(note);
             Notes.Add(note);
         }
@@ -128,6 +128,64 @@ namespace Notes3
                     Point currentPosition = e.GetPosition(this);
                     _note.xPos = currentPosition.X - _offsetPoint.X;
                     _note.yPos = currentPosition.Y - _offsetPoint.Y;
+                    DatabaseManagement.EditNotes(_note.id, newNote);
+                }
+            }
+        }
+
+
+        private void ChangeSizeLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Grid NoteObject)
+            {
+                var _note = NoteObject.DataContext as Note;
+                if (_note != null)
+                {
+                    if (!_note.pinMode)
+                    {
+                        NoteObject.CaptureMouse();
+
+                        Point posCursor = e.MouseDevice.GetPosition(this);
+
+                        if (_note != null)
+                        {
+                            _offsetPoint = new Point(
+                                posCursor.X - _note.xPos,
+                                posCursor.Y - _note.yPos);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ChangeSizeMouseMove(object sender, MouseEventArgs e)
+        {
+            if (sender is Grid NoteObject && NoteObject.IsMouseCaptured)
+            {
+                Point currentPosition = e.GetPosition(this);
+
+                var _note = NoteObject.DataContext as Note;
+                if (_note != null)
+                {
+                    _note.width = currentPosition.X - _offsetPoint.X;
+                    _note.height = currentPosition.Y - _offsetPoint.Y;
+                }
+            }
+        }
+
+        private void ChangeSizeLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is Grid NoteObject)
+            {
+                NoteObject.ReleaseMouseCapture();
+                var _note = NoteObject.DataContext as Note;
+                if (_note != null && !_note.pinMode)
+                {
+                    Note newNote = _note as Note;
+
+                    Point currentPosition = e.GetPosition(this);
+                    _note.width = currentPosition.X - _offsetPoint.X;
+                    _note.height = currentPosition.Y - _offsetPoint.Y;
                     DatabaseManagement.EditNotes(_note.id, newNote);
                 }
             }

@@ -14,6 +14,8 @@ namespace Notes3.Models
         private DateTime CreationDate;
         private double XPos;
         private double YPos;
+        private double Width;
+        private double Height;
         private string Text = "";
         private bool PinMode = false;
 
@@ -66,6 +68,27 @@ namespace Notes3.Models
                 OnPropertyChanged();
             }
         }
+
+        public double width
+        {
+            get { return Width; }
+            set
+            {
+                Width = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public double height
+        {
+            get { return Height; }
+            set
+            {
+                Height = value;
+                OnPropertyChanged();
+            }
+        }
+
         public string text
         {
             get { return Text; }
@@ -76,12 +99,14 @@ namespace Notes3.Models
             }
         }
 
-        public Note(string text, bool pinMode, double xPos, double yPos )
+        public Note(string text, bool pinMode, double xPos, double yPos, double width, double height )
         {
             Text = text;
             PinMode = pinMode;
             XPos = xPos;
             YPos = yPos;
+            Width = width;
+            Height = height;
             CreationDate = DateTime.Now;
         }
 
